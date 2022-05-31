@@ -1,3 +1,5 @@
+Chapter 66 - 72
+
 Chapter 70
 
 next-auth has updated to version 4 since the youtube video. Thus,
