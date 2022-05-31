@@ -2,9 +2,8 @@ import { useSession, signIn } from "next-auth/react"
 
 
 function Dashboard() {
-  // const [session, loading] = useSession()
-
-  const {status} = useSession()
+  
+  const {data: session, status} = useSession()
 
   if(status === 'loading') {
     return <h2>Loading...</h2>
@@ -14,7 +13,7 @@ function Dashboard() {
     return <h2>Access Denied</h2>
   }
 
-  return <h1>Dashboard, you are signin</h1>
+  return <h1>{session.user.name}, Dashboard, you are signin</h1>
 }
 
 export default Dashboard
