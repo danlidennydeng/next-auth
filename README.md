@@ -1,34 +1,111 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Chapter 70
 
-## Getting Started
+next-auth has updated to version 4 since the youtube video. Thus,
 
-First, run the development server:
+In recent Update Code should be look like this----
+At first wrap your _app.js by SessionProvider
+import { SessionProvider } from "next-auth/react";
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+function MyApp({ Component, pageProps: {session, ...pageProps }}) {
+  return (
+    <SessionProvider session={session}>
+      <Navbar />
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
+}
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+export default MyApp;
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+=> useSession will then have access to the session data and status. Now go to Navbar.js
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+import Link from "next/link";
+import { signIn, signOut, useSession } from "next-auth/react";
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+function Navbar() {
+  const { data: session, status } = useSession();
+  console.log(session, status);
+  return (
+    <nav className="header">
+      <h1 className="logo">
+        <a href="#">NextAuth</a>
+      </h1>
+      <ul className="main-nav">
+        <li>
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/dashboard">
+            <a>Dashboard</a>
+          </Link>
+        </li>
+        <li>
+          <Link href="/blog">
+            <a>Blog</a>
+          </Link>
+        </li>
+        {!session && status == "unauthenticated" && (
+          <li>
+            <Link href="/api/auth/signin">
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  signIn('github');
+                }}
+              >
+                Sign In
+              </a>
+            </Link>
+          </li>
+        )}
 
-## Learn More
+        {session && status == 'authenticated' && (
+          <li>
+            <Link href="/api/auth/signout">
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  signOut();
+                }}
+              >
+                Sign Out
+              </a>
+            </Link>
+          </li>
+        )}
+      </ul>
+    </nav>
+  );
+}
 
-To learn more about Next.js, take a look at the following resources:
+export default Navbar;
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+==================================================================================
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Chapter 71
 
-## Deploy on Vercel
+import {useSession, signIn} from 'next-auth/react';
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+function Dashboard(){
+    
+    const {status} = useSession();
+    
+    if(status === 'loading'){
+        return <h2>Loading...</h2>
+    }
+    if(status === 'unauthenticated'){
+        return <h2>Access Denied</h2>
+    }
+
+    return(
+        <>
+            <h1>Protected page</h1>
+            <p>You can view Dashboard Page, because you are Signed In</p>
+        </>
+    )
+}
+
+export default Dashboard;
