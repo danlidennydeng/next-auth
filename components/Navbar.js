@@ -2,8 +2,10 @@ import Link from 'next/link'
 import { signIn, signOut, useSession } from 'next-auth/react'
 
 function Navbar() {
-  const {data: session, status} = useSession()
-
+  const {data: session, status, loading} = useSession()
+  
+  
+  
   console.log(session, status)
   // console.log('status =>', status)
 
@@ -49,6 +51,13 @@ function Navbar() {
         )}
         
         {session && status == "authenticated" && (
+          <>
+          <li>
+            <Link href='/blog'>
+              <a>{session.user.name}</a>
+            </Link>
+          </li>
+
           <li>
           <Link href='/api/auth/signout'>
             <a onClick={e => {
@@ -59,6 +68,7 @@ function Navbar() {
             </a>
           </Link>
         </li>
+        </>
         )}
         
       </ul>  

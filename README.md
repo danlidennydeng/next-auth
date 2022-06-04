@@ -111,3 +111,38 @@ function Dashboard(){
 }
 
 export default Dashboard;
+
+==================================================================================
+
+Chapter 73
+
+import { getSession } from 'next-auth/react';
+
+function Blog({blogsdata}){
+    return <h1>Blog Page - {blogsdata}</h1>
+}
+
+export default Blog
+
+
+export async function getServerSideProps(context){
+    const session = await getSession(context);
+    console.log(session)
+    return {
+        props:{
+            blogsdata : session  ? 'List of 100 personalizedblogs' : 'List of free blogs'
+        },
+    }
+}
+
+---------------------------------------
+
+did not pay too much attention to flicking...I will come back to study more about it.
+
+---------------------------------------
+
+What are the differences in between client-side authentication and server-side authentication?
+
+Server side won't render if user is not authed. While with client side you still render the ui to the user,  then try to auth him, and then populate it (or not if he's not authorized). If you want to protect the UI or maybe other reasons to not render anything to the user if he's not authed then you need server-side authentication.
+
+Should I use both? They seems so.
