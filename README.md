@@ -146,3 +146,11 @@ What are the differences in between client-side authentication and server-side a
 Server side won't render if user is not authed. While with client side you still render the ui to the user,  then try to auth him, and then populate it (or not if he's not authorized). If you want to protect the UI or maybe other reasons to not render anything to the user if he's not authed then you need server-side authentication.
 
 Should I use both? They seems so.
+
+Chapter 76
+
+It cannot connect to MongoDB Atlas due to next-auth v4 conflicts with the version of MongoDB Atlas.
+
+It should automatically get connected with mongoDB, and then generate a unique random ID number for the user.
+
+Back to Chapter 75 to make it work
