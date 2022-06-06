@@ -146,6 +146,7 @@ What are the differences in between client-side authentication and server-side a
 Server side won't render if user is not authed. While with client side you still render the ui to the user,  then try to auth him, and then populate it (or not if he's not authorized). If you want to protect the UI or maybe other reasons to not render anything to the user if he's not authed then you need server-side authentication.
 
 Should I use both? They seems so.
+=====================================================================================================
 
 Chapter 76
 
@@ -196,3 +197,14 @@ sessionToken: se5bcc0e5-310a-4118-ba47-4314f0c91b29
 
 User ID:    629d5016c94e7596e9fb5bd6
 #keeps the same after each signin, signout, or each session.
+
+=====================================================================================================
+
+Chapter 77
+
+ I do not quite understand the concept of this tutorial. We already got a user _id: ObjectId("6117...0e11"), why do we need to create another customized unique ID? The _id created by the next-auth automatically is not unique enough?
+
+It does not work anyway.
+
+Rolled back.
+
