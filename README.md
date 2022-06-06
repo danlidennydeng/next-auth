@@ -149,8 +149,50 @@ Should I use both? They seems so.
 
 Chapter 76
 
-It cannot connect to MongoDB Atlas due to next-auth v4 conflicts with the version of MongoDB Atlas.
+Next Auth Basics tutorial | Add Google, GitHub, Twitter, and Email authentication in Next.js project by Clues Coding
+https://youtu.be/tgrvKGPmI04
+at 51:12
 
-It should automatically get connected with mongoDB, and then generate a unique random ID number for the user.
+In [...nextauth].js file,
 
-Back to Chapter 75 to make it work
+import NextAuth from 'next-auth'
+import GithubProvider from 'next-auth/providers/github'
+
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from "./lib/mongodb"
+
+export default NextAuth({
+  
+  providers: [
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET
+    }),
+  ],
+  
+  adapter: MongoDBAdapter(clientPromise),
+
+})
+
+This would create an account, session, users collections in MongoDB Atlas automatically.
+
+account: account from github
+session: session ID will expires after one month, the default
+users: user information, including user name, email, etc
+
+
+Account ID: 629d5016c94e7596e9fb5bd7
+#keeps the same after each signin, signout or each session from github
+
+providerAccountId: "5419435"
+#keeps the same after each signin, signout or each session
+
+access_token: "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"
+#access_token keeps the same after each signin, signout, or each session.
+
+session ID: 629d5167c94e7596e9fb5bd9
+sessionToken: se5bcc0e5-310a-4118-ba47-4314f0c91b29
+#both session ID and sessionToken changes after each signin, signout or each session even for the same user.
+
+User ID:    629d5016c94e7596e9fb5bd6
+#keeps the same after each signin, signout, or each session.
