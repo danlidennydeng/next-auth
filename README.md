@@ -1,5 +1,7 @@
 Chapter 66 - 72
 
+==========================================================================================
+
 Chapter 70
 
 next-auth has updated to version 4 since the youtube video. Thus,
@@ -207,4 +209,13 @@ Chapter 77
 It does not work anyway.
 
 Rolled back.
+
+=====================================================================================
+
+Chapter 79
+
+Successfully deploy to Vercel.
+
+Found some other methods to deploy to other cloud providers.
+=====================================================================================================
 
